@@ -11,7 +11,9 @@ This project link to paper [Characterize Disease Progression Subphenotypes in Re
 
 ## Authors
 Contributors names and contact info:
+
 Yao An Lee (danielyaoanlee@gmail.com)
+
 Yu Huang (yh60@iu.edu)
 
 
