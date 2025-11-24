@@ -1,16 +1,24 @@
+# Disease-Progression-Subphenotypes-in-Obesity-Patients-using-GNN
+Release date: Nov 13, 2025
+
+
+## Descriptions
+This project link to paper [Characterize Disease Progression Subphenotypes in Real World Populations with Overweight and Obesity using a Graph-based Neural Network Framework ](https://github.com/Danielyaoan/Disease-Progression-Subphenotypes-in-Obesity-Patients-using-GNN)
+
+
 # GraphModeling
 GraphModeling is a comprehensive graph modeling tool that includes multiple Graph Neural Network (GNN) models for tasks such as classification, feature embedding, clustering, and future analysis.
 
 ## Overview of Paper
-![Overview of Paper](images/overview_new.svg)
+![Overview of Paper](images/Overview_new.png)
 
 ## Overview of this tool 
 ![Overview of GraphModeling Tool](images/overview.png)
 
 ## Create conda env name as graphmodel and activate it 
 ```console
-conda env create -n graphmodel -f graph_model_env.yml
-conda activate graphmodel
+conda env create -n graph_model_env -f graph_model_env.yml
+conda activate graph_model_env
 ```
 ## Running step
 After you install related envirnoment
@@ -32,21 +40,24 @@ Then, execute:
 ```console
 sh 0.job submitter.sh
 ```
-### 3. Consensus Clustering
-This step helps find the best K in clustering with feature embeddings from the fine-tuned model.
-(For large datasets, use only 10% of the training set for Consensus Clustering. Load the index prepared earlier. This can be ignored for smaller datasets.)
-Navigate to the Consensus_Clustering folder.
+### 3. K-Selection
+Navigate to K-selection/. This step helps find the best K in clustering with feature embeddings from the fine-tuned model.
+We selected the number of clusters K for the GNN-derived embedding trajectories by fitting time-series K-means (with DTW distance) across a range of candidate K values. For each K, we computed the Davies–Bouldin index (DBI), where lower values indicate tighter, better-separated clusters, and the silhouette score, where higher values indicate improved within-cluster cohesion relative to between-cluster separation. The optimal K was chosen based on the joint criterion of a local minimum in DBI and a corresponding maximum (or plateau) in silhouette score, supported by visual inspection of cluster interpretability.
 Run on your environment or via Slurm on a high-performance platform:
 ```console
-python Consensus_Clustering.py  
+python find_gat_nint_k_dbi.py
+python find_gat_nint_k.py
+python find_gat_tol_k_dbi.py
+python find_gat_tol_k.py
 ```
 ```console
-sbatch slurm_Consensus_Clustering.sh
+sbatch submitter_dbi.sh
+sbatch submitter.sh
 ```
 ### 4. Clustering
-After determining the best K, run clustering based on this value. Use the same data from Consensus Clustering to fit the Clustering model and predict clusters for the entire dataset.
+After determining the best K, run clustering based on this value. Use the same data from K-Selection to fit the Clustering model and predict clusters for the entire dataset.
 ```console
-python 2.Clustering.py -s Settings/Clustering/clustering.json
+python 2.Clustering_TS_kmeans.py -s Settings/Clustering/clustering.json
 ```
 
 ### 5. Predict_modeling
@@ -81,3 +92,17 @@ Then, run:
 sh 0.job submitter.sh
 ```
 
+
+## Authors
+Contributors names and contact info:
+
+Yao An Lee (danielyaoanlee@gmail.com)
+
+Yu Huang (yh60@iu.edu)
+
+
+## Liscense
+TBD
+
+
+## Acknowledge
