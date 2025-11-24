@@ -1,0 +1,17 @@
+{
+    "model_type": "GraphSAGE",
+    "root_dir":"Graph_Dataset/",
+    "dataset_dir": "whole_dataset",
+    "dataset_filename": "output_node_features.pickle",
+    "adj_matrix_filename": "adj_matrix.pickle",
+    "model_id": "whole_dataset",
+    "models_dir": "Models",
+    "output_root_dir":"/results/",
+    "output_statistic_dir": "Output/Statistic",
+    "statistic_filename": "statistic.csv",
+    "n_clusters": 4,
+    "distance_matrix": "euclidean",
+    "linkage" : "ward",
+    "output_cluster_dir": "Output/Cluster",
+    "cluster_filename": "Cluster.csv"
+}
